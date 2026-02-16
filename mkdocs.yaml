@@ -23,18 +23,17 @@ theme:
 
     palette:
         - media: "(prefers-color-scheme)"
-          accent: deep purple
           toggle:
               icon: material/brightness-auto
               name: Switch to light mode
         - media: "(prefers-color-scheme: light)"
-          accent: deep purple
+          primary: white
           scheme: default
           toggle:
               icon: material/brightness-7
               name: Switch to dark mode
         - media: "(prefers-color-scheme: dark)"
-          accent: deep purple
+          primary: black
           scheme: slate
           toggle:
               icon: material/brightness-4
@@ -72,7 +71,8 @@ nav:
 
 plugins:
     - autorefs
-    - blog
+    - blog:
+          authors_profiles: true
     - mkdocstrings:
           handlers:
               python:
