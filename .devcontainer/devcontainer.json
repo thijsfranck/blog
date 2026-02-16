@@ -1,0 +1,104 @@
+{
+    "containerEnv": {
+        "SOPS_AGE_KEY_FILE": "${containerWorkspaceFolder}/secrets/keys.txt"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "charliermarsh.ruff",
+                "DavidAnson.vscode-markdownlint",
+                "esbenp.prettier-vscode",
+                "KnisterPeter.vscode-commitizen",
+                "nrwl.angular-console",
+                "PKief.material-icon-theme",
+                "tamasfe.even-better-toml",
+                "-ms-python.autopep8"
+            ],
+            "settings": {
+                "[json]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[markdown]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[python]": {
+                    "editor.defaultFormatter": "charliermarsh.ruff"
+                },
+                "[toml]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[yaml]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "editor.formatOnSave": true,
+                "editor.formatOnSaveMode": "file",
+                "files.exclude": {
+                    "**/.pytest_cache": true,
+                    "**/.ruff_cache": true,
+                    "**/__pycache__": true,
+                    ".nx": true,
+                    ".venv": true,
+                    "node_modules": true
+                },
+                "files.insertFinalNewline": true,
+                "files.watcherExclude": {
+                    "**/.pytest_cache": true,
+                    "**/.ruff_cache": true,
+                    "**/__pycache__": true,
+                    ".git/objects/**": true,
+                    ".git/subtree-cache/**": true,
+                    ".nx": true,
+                    ".venv": true,
+                    "node_modules": true
+                },
+                "material-icon-theme.files.associations": {
+                    "*.enc": "key",
+                    "keys.txt": "key",
+                    "project.json": "nx"
+                },
+                "material-icon-theme.folders.associations": {
+                    "connectors": "connection"
+                },
+                "python.analysis.typeCheckingMode": "standard",
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false,
+                "vscode.env.isTelemetryEnabled": false
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers-extra/features/apt-packages:1": {
+            "packages": ["age", "gnupg2"]
+        },
+        "ghcr.io/devcontainers-extra/features/nx-npm:1": {
+            "version": "22.5.1"
+        },
+        "ghcr.io/devcontainers-extra/features/sops:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
+        "ghcr.io/devcontainers/features/python:1": {
+            "toolsToInstall": ["uv"],
+            "version": "3.14"
+        }
+    },
+    "forwardPorts": [8000],
+    "image": "mcr.microsoft.com/devcontainers/base:noble",
+    "name": "Blog 📖",
+    "onCreateCommand": {
+        "npm": "bash .devcontainer/npm.sh",
+        "uv": "bash .devcontainer/uv.sh"
+    },
+    "portsAttributes": {
+        "8000": {
+            "label": "MkDocs"
+        }
+    },
+    "postCreateCommand": {
+        "pre-commit": "bash .devcontainer/pre-commit.sh",
+        "sops": "bash .devcontainer/sops.sh"
+    }
+}

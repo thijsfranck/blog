@@ -1,0 +1,54 @@
+[project]
+name = "thijsfranck-blog"
+readme = "docs/README.md"
+requires-python = ">=3.14"
+version = "0.0.0"
+
+[[project.authors]]
+name = "Thijs Franck"
+
+[dependency-groups]
+dev = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.15",
+    "mkdocs-print-site-plugin>=2.7.3",
+    "mkdocstrings>=0.29.1",
+    "mkdocstrings-python>=1.16.12",
+    "pre-commit>=4.2.0",
+    "pymdown-extensions>=10.16",
+    "pyright>=1.1.403",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.0.0",
+    "pytest-cov>=6.2.1",
+    "pytest-mock>=3.14.1",
+    "pytest-sugar>=1.0.0",
+    "ruff>=0.12.3",
+    "types-boto3[full]>=1.39.6",
+]
+
+[tool.pyright]
+exclude = [".venv"]
+pythonVersion = "3.14"
+reportUnnecessaryTypeIgnoreComment = "error"
+typeCheckingMode = "standard"
+venvPath = "."
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "module"
+asyncio_mode = "auto"
+required_plugins = ["pytest-asyncio"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+
+[tool.ruff.lint]
+ignore = ["D100", "D104", "D105", "D212", "D107", "LOG015", "S311", "FIX002", "PT001", "TC001", "TC002", "TC003"]
+select = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/conftest.py" = ["INP001"]
+"**/test__*.py" = ["INP001", "S101", "PLR2004"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
