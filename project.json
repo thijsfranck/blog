@@ -1,0 +1,14 @@
+{
+    "$schema": "node_modules/nx/schemas/project-schema.json",
+    "name": "thijsfranck-blog",
+    "targets": {
+        "local-registry": {
+            "executor": "@nx/js:verdaccio",
+            "options": {
+                "config": ".verdaccio/config.yml",
+                "port": 4873,
+                "storage": "tmp/local-registry/storage"
+            }
+        }
+    }
+}

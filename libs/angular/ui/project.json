@@ -1,0 +1,44 @@
+{
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "name": "ui",
+    "prefix": "thijsfranck",
+    "projectType": "library",
+    "release": {
+        "version": {
+            "currentVersionResolver": "git-tag",
+            "fallbackCurrentVersionResolver": "disk",
+            "manifestRootsToUpdate": ["dist/{projectRoot}"]
+        }
+    },
+    "sourceRoot": "libs/angular/ui/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "configurations": {
+                "development": {},
+                "production": {
+                    "tsConfig": "libs/angular/ui/tsconfig.lib.prod.json"
+                }
+            },
+            "defaultConfiguration": "production",
+            "executor": "@nx/angular:package",
+            "options": {
+                "project": "libs/angular/ui/ng-package.json",
+                "tsConfig": "libs/angular/ui/tsconfig.lib.json"
+            },
+            "outputs": ["{workspaceRoot}/dist/{projectRoot}"]
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint"
+        },
+        "nx-release-publish": {
+            "options": {
+                "packageRoot": "dist/{projectRoot}"
+            }
+        },
+        "test": {
+            "executor": "@nx/angular:unit-test",
+            "options": {}
+        }
+    }
+}

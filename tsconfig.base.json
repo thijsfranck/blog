@@ -8,6 +8,9 @@
         "lib": ["es2022", "dom"],
         "module": "esnext",
         "moduleResolution": "node10",
+        "paths": {
+            "@thijsfranck/ui": ["libs/angular/ui/src/index.ts"]
+        },
         "rootDir": ".",
         "skipDefaultLibCheck": true,
         "skipLibCheck": true,
