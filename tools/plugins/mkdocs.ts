@@ -3,6 +3,7 @@ import { dirname } from "path";
 
 export interface MkdocsPluginOptions {
     readonly docsTargetName?: string;
+    readonly publishTargetName?: string;
 }
 
 const glob = "mkdocs.yaml";
@@ -21,7 +22,7 @@ export const createNodesV2: CreateNodesV2<MkdocsPluginOptions> = [
 
 async function createNodesInternal(
     configFilePath: string,
-    { docsTargetName = "docs" }: MkdocsPluginOptions = {},
+    { docsTargetName = "docs", publishTargetName = "docs-publish" }: MkdocsPluginOptions = {},
 ): Promise<CreateNodesResult> {
     const projectRoot = dirname(configFilePath);
 
@@ -37,6 +38,15 @@ async function createNodesInternal(
                         },
                         options: {
                             command: "uv run mkdocs serve",
+                        },
+                    },
+                    [publishTargetName]: {
+                        executor: "@nxlv/python:run-commands",
+                        metadata: {
+                            description: "Publish the Mkdocs documentation",
+                        },
+                        options: {
+                            command: "uv run mkdocs gh-deploy",
                         },
                     },
                 },

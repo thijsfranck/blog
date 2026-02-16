@@ -34,6 +34,14 @@ jobs:
             - name: Install Python dependencies
               run: uv venv --allow-existing && uv sync
 
+            - name: Setup Node.js and dependencies
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+
+            - name: Install Node.js dependencies
+              run: npm install
+
             - name: Publish documentation
-              run: uv run mkdocs gh-deploy
-              shell: bash
+              run: npx nx run-many -t docs-publish chromatic
