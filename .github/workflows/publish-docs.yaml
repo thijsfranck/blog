@@ -5,11 +5,22 @@ on:
         branches:
             - main
 
+env:
+    SOPS_AGE_KEY: ${{ secrets.AGE_SECRET_KEY }}
+
 jobs:
     publish-docs:
         runs-on: ubuntu-latest
 
         steps:
+            - name: Install SOPS
+              env:
+                  SOPS_VERSION: v3.11.0
+              run: |
+                  curl -LO https://github.com/getsops/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64
+                  sudo mv sops-${SOPS_VERSION}.linux.amd64 /usr/local/bin/sops
+                  sudo chmod +x /usr/local/bin/sops
+
             - name: Checkout code
               uses: actions/checkout@v4
               with:
