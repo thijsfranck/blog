@@ -25,6 +25,9 @@
                 "[python]": {
                     "editor.defaultFormatter": "charliermarsh.ruff"
                 },
+                "[scss]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
                 "[toml]": {
                     "editor.defaultFormatter": "esbenp.prettier-vscode"
                 },
