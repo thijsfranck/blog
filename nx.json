@@ -11,7 +11,18 @@
         "./tools/plugins/mkdocs.ts",
         "./tools/plugins/python.ts",
         "./tools/plugins/sops-decrypt.ts",
-        "./tools/plugins/sops-encrypt.ts"
+        "./tools/plugins/sops-encrypt.ts",
+        {
+            "options": {
+                "buildDepsTargetName": "build-deps",
+                "buildStorybookTargetName": "build-storybook",
+                "serveStorybookTargetName": "storybook",
+                "staticStorybookTargetName": "static-storybook",
+                "testStorybookTargetName": "test-storybook",
+                "watchDepsTargetName": "watch-deps"
+            },
+            "plugin": "@nx/storybook/plugin"
+        }
     ],
     "release": {
         "changelog": {
