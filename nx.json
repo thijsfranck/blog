@@ -16,7 +16,10 @@
             "default",
             "!{projectRoot}/src/test/**/*",
             "!{projectRoot}/.eslintrc.json",
-            "!{projectRoot}/eslint.config.mjs"
+            "!{projectRoot}/eslint.config.mjs",
+            "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+            "!{projectRoot}/.storybook/**/*",
+            "!{projectRoot}/tsconfig.storybook.json"
         ]
     },
     "plugins": [
@@ -73,6 +76,9 @@
                 "{workspaceRoot}/.eslintignore",
                 "{workspaceRoot}/eslint.config.mjs"
             ]
+        },
+        "build-storybook": {
+            "cache": true
         }
     }
 }

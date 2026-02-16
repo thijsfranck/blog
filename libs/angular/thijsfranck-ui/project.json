@@ -1,0 +1,98 @@
+{
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "name": "thijsfranck-ui",
+    "prefix": "thijsfranck",
+    "projectType": "library",
+    "release": {
+        "version": {
+            "currentVersionResolver": "git-tag",
+            "fallbackCurrentVersionResolver": "disk",
+            "manifestRootsToUpdate": ["dist/{projectRoot}"]
+        }
+    },
+    "sourceRoot": "libs/angular/thijsfranck-ui/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "configurations": {
+                "development": {},
+                "production": {
+                    "tsConfig": "libs/angular/thijsfranck-ui/tsconfig.lib.prod.json"
+                }
+            },
+            "defaultConfiguration": "production",
+            "executor": "@nx/angular:package",
+            "options": {
+                "project": "libs/angular/thijsfranck-ui/ng-package.json",
+                "tsConfig": "libs/angular/thijsfranck-ui/tsconfig.lib.json"
+            },
+            "outputs": ["{workspaceRoot}/dist/{projectRoot}"]
+        },
+        "build-storybook": {
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            },
+            "executor": "@storybook/angular:build-storybook",
+            "options": {
+                "browserTarget": "thijsfranck-ui:build-storybook",
+                "compodoc": false,
+                "configDir": "libs/angular/thijsfranck-ui/.storybook",
+                "experimentalZoneless": true,
+                "outputDir": "dist/storybook/thijsfranck-ui"
+            },
+            "outputs": ["{options.outputDir}"]
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint"
+        },
+        "nx-release-publish": {
+            "options": {
+                "packageRoot": "dist/{projectRoot}"
+            }
+        },
+        "static-storybook": {
+            "configurations": {
+                "ci": {
+                    "buildTarget": "thijsfranck-ui:build-storybook:ci"
+                }
+            },
+            "dependsOn": ["build-storybook"],
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "thijsfranck-ui:build-storybook",
+                "experimentalZoneless": true,
+                "host": "127.0.0.1",
+                "spa": true,
+                "staticFilePath": "dist/storybook/thijsfranck-ui"
+            }
+        },
+        "storybook": {
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            },
+            "executor": "@storybook/angular:start-storybook",
+            "options": {
+                "browserTarget": "thijsfranck-ui:build-storybook",
+                "compodoc": false,
+                "configDir": "libs/angular/thijsfranck-ui/.storybook",
+                "experimentalZoneless": true,
+                "host": "127.0.0.1",
+                "port": 4400
+            }
+        },
+        "test": {
+            "executor": "@nx/angular:unit-test",
+            "options": {}
+        },
+        "test-storybook": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "test-storybook -c libs/angular/thijsfranck-ui/.storybook --url=http://localhost:4400"
+            }
+        }
+    }
+}
