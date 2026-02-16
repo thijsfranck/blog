@@ -5,6 +5,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
+                "Angular.ng-template",
                 "charliermarsh.ruff",
                 "DavidAnson.vscode-markdownlint",
                 "esbenp.prettier-vscode",
@@ -25,6 +26,9 @@
                     "editor.defaultFormatter": "charliermarsh.ruff"
                 },
                 "[toml]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[typescript]": {
                     "editor.defaultFormatter": "esbenp.prettier-vscode"
                 },
                 "[yaml]": {
