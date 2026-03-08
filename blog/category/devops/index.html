@@ -819,99 +819,13 @@ windows, and seamless integration with my development workflow.</p>
 configuring <a href="https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline">Roo Code</a> for agentic
 workflows and <a href="https://marketplace.visualstudio.com/items?itemName=Continue.continue">Continue.dev</a> for editor
 autocomplete in a VSCode devcontainers environment.</p>
-<h3 id="why-local-llms-for-my-workflow"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#why-local-llms-for-my-workflow">Why Local LLMs for My Workflow?</a></h3>
-<p>Before diving into the setup, let me share why I pursued local LLMs in the first place. For my development needs,
-three benefits stood out as particularly important:</p>
-<ul>
-<li>
-<p><strong>Privacy</strong>: Your code never leaves your machine. This is crucial when working with proprietary codebases or
-  sensitive projects where you cannot risk sending code to external APIs.</p>
-</li>
-<li>
-<p><strong>Latency</strong>: No network round-trip delays for inference means faster responses when asking questions or getting
-  suggestions. The difference becomes noticeable when you're in a flow state and waiting for AI assistance.</p>
-</li>
-<li>
-<p><strong>Larger Context Windows</strong>: When working with large projects, the ability to provide more context to the mode
-  is invaluable. Local setups allow for larger context windows than many cloud-based solutions, enabling better
-  understanding of your entire codebase structure.</p>
-</li>
-</ul>
-<h3 id="model-selection"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#model-selection">Model Selection</a></h3>
-<p>I tested several models before settling on two that work well for different purposes:</p>
-<h4 id="agentic-workflows"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#agentic-workflows">Agentic Workflows</a></h4>
-<p>This larger model handles complex reasoning tasks, code generation, and detailed explanations. The <a href="https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct"><code>Qwen3.5-35B</code></a>
-model is a good choice here. Its size provides good quality for a variety of tasks while remaining manageable
-on consumer hardware.</p>
-<h4 id="autocomplete"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#autocomplete">Autocomplete</a></h4>
-<p>For tab-autocomplete, I needed something faster that could provide quick suggestions without interrupting my workflow
-The <a href="https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct"><code>Qwen2.5-Coder-7B</code></a> model strikes the right balance
-between speed and suggestion quality.</p>
-<div class="admonition question">
-<p class="admonition-title">Why Qwen Models?</p>
-<p>I chose Qwen models because they offer excellent code understanding capabilities, good multilingual support, and
-perform well with GGUF quantization format used by LM Studio. The models are also Apache 2.0 licensed, making them
-accessible for personal and commercial use.</p>
-</div>
-<h3 id="llm-server-setup"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#llm-server-setup">LLM Server Setup</a></h3>
-<p>After evaluating several options, I chose <a href="https://lmstudio.ai">LM Studio</a> as my local LLM server. Here's why
-it worked well for me:</p>
-<ul>
-<li><strong>Straightforward UI</strong>: The interface is intuitive and easy to navigate</li>
-<li><strong>Easy model downloads</strong>: Built-in browsing makes discovering and downloading models simple</li>
-<li><strong>Visual model management</strong>: See available models, their sizes, and compatibility at a glance</li>
-<li><strong>REST API server mode</strong>: Provides the backend that VSCode extensions can connect to</li>
-</ul>
-<h4 id="enabling-the-server"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#enabling-the-server">Enabling the Server</a></h4>
-<p>The only tricky part I encountered was enabling the server. It's controlled by a small toggle switch in the UI
-that can be easy to miss:</p>
-<ol>
-<li>Open LM Studio and navigate to the <strong>Local Server</strong> tab</li>
-<li>Toggle <strong>"Start Local Server"</strong> ON (small toggle at the top of the page)</li>
-<li>Once enabled, LM Studio runs locally on port 1234 by default, ready to accept connections from your VSCode
-   extensions</li>
-</ol>
-<h4 id="network-configuration-for-devcontainers"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#network-configuration-for-devcontainers">Network Configuration for DevContainers</a></h4>
-<p>When using devcontainers, the easiest way I've found to connect to LM Studio is to serve it on the local network.
-In LM Server settings, enable <strong>"Serve on Local Network"</strong>. LM Studio will then be accessible at <code>http://&lt;your-machine-ip&gt;:1234</code>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Network Security</p>
-<p>I realize exposing LM Studio to the network might raise security concerns, so I'd be open to other suggestions
-for strictly local access!</p>
-</div>
-<h3 id="vscode-extensions"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#vscode-extensions">VSCode Extensions</a></h3>
-<p>After trying out different combinations to see what works best for me, I settled on using <strong>two extensions</strong>,
-each serving a specific purpose in my workflow:</p>
-<h4 id="agentic-workflows_1"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#agentic-workflows_1">Agentic Workflows</a></h4>
-<p>For agentic workflows I landed on the <a href="https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline">Roo Code</a>
-extension. It provides an excellent UX for for complex workflows with strong capabilities for codebase reasoning
-and task execution, making it an excellent choice for complex coding tasks requiring multi-step planning.</p>
-<p>Unfortunately, Roo Code does not support autocomplete, so I needed an alternative for that.</p>
-<h4 id="autocomplete_1"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#autocomplete_1">Autocomplete</a></h4>
-<p>For autocomplete I chose the <a href="https://marketplace.visualstudio.com/items?itemName=Continue.continue">Continue.dev</a>
-extension. The extension integrates well with the editor, although the experience is not as seemless as GitHub
-Copilot. I may still keep on the lookout for a better alternative.</p>
-<h3 id="devcontainers-integration"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#devcontainers-integration">DevContainers Integration</a></h3>
-<p>I installed <strong>both extensions inside the devcontainer</strong> rather than on the host. Extensions running inside the
-container have direct access to the filesystem, improving file read/write operations for agentic workflows.</p>
-<h3 id="conclusion"><a class="toclink" href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/#conclusion">Conclusion</a></h3>
-<p>My recommended setup for developers who want both agentic capabilities and autocomplete support is:</p>
-<ul>
-<li><strong>Server</strong>: <a href="https://lmstudio.ai">LM Studio</a></li>
-<li><strong>Agentic Extension</strong>: <a href="https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline">Roo Code</a></li>
-<li><strong>Autocomplete Extension</strong>: <a href="https://marketplace.visualstudio.com/items?itemName=Continue.continue">Continue.dev</a></li>
-<li><strong>Models</strong>: <a href="https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct"><code>Qwen3.5-35B</code></a> for agentic
-  tasks, <a href="https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct"><code>Qwen2.5-Coder-7B</code></a> for autocomplete</li>
-</ul>
-<p>This configuration is ideal if you:</p>
-<ul>
-<li>Prefer to work in a local first development environment</li>
-<li>Need to keep code local for privacy reasons</li>
-<li>Work with large projects requiring larger context windows</li>
-<li>Want both agentic capabilities and inline autocomplete</li>
-</ul>
-<hr />
-<p><em>Happy coding! If you've tried a similar setup, I'd love to hear about your experiences.</em></p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2026/03/08/setting-up-a-local-first-ai-developer-environment/">
+          Continue reading
+        </a>
+      </nav>
     
     
   </div>
