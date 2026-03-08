@@ -17,6 +17,8 @@ configuring [Roo Code](https://marketplace.visualstudio.com/items?itemName=RooVe
 workflows and [Continue.dev](https://marketplace.visualstudio.com/items?itemName=Continue.continue) for editor
 autocomplete in a VSCode devcontainers environment.
 
+<!-- more -->
+
 ## Why Local LLMs for My Workflow?
 
 Before diving into the setup, let me share why I pursued local LLMs in the first place. For my development needs,
